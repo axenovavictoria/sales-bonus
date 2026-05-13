@@ -96,6 +96,7 @@ function analyzeSalesData(data, options) {
         const sellerStat = sellerIndex[sellerId]; // получение статистики продавца
         if (!sellerStat) return; 
         sellerStat.sales_count += 1; 
+        sellerStat.revenue += record.total_amount;
     
         // цикл по товарам в чеке
         record.items.forEach(item => {
