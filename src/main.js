@@ -145,5 +145,4 @@ function analyzeSalesData(data, options) {
         };
     });
     return result;
-    console.table(result);
 }
