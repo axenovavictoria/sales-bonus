@@ -137,11 +137,11 @@ function analyzeSalesData(data, options) {
         return { // добавление итоговой коллекции
             seller_id: seller.id, // добавление ID продавца
             name: seller.name, // добавление имени продавца
-            revenue: +seller.revenue.toFixed(2), // добавление выручки
-            profit: +seller.profit.toFixed(2), // добавление прибыли
+            revenue: Math.round(seller.revenue * 100) / 100, // добавление выручки
+            profit: Math.round(seller.profit * 100) / 100, // добавление прибыли
             sales_count: seller.sales_count, // добавление количества продаж
             top_products: topProducts, // добавление топ 10 товаров
-            bonus: +(bonuses.find(bonus => bonus.name === seller.name)?.bonus || 0).toFixed(2) // добавление бонуса по имени продавца
+            bonus: Math.round((bonuses.find(b => b.name === seller.name)?.bonus || 0) * 100) / 100 // добавление бонуса по имени продавца
         };
     });
     return result;
