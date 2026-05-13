@@ -138,8 +138,8 @@ function analyzeSalesData(data, options) {
         return { // добавление итоговой коллекции
             seller_id: seller.id, // добавление ID продавца
             name: seller.name, // добавление имени продавца
-            revenue: seller.revenue, // добавление выручки
-            profit: seller.profit, // добавление прибыли
+            revenue:  Math.round(seller.revenue * 100) / 100, // добавление выручки
+            profit: Math.round(seller.profit * 100) / 100, // добавление прибыли
             sales_count: seller.sales_count, // добавление количества продаж
             top_products: topProducts, // добавление топ 10 товаров
             bonus: Math.round((bonuses.find(b => b.name === seller.name)?.bonus || 0) * 100) / 100 // добавление бонуса по имени продавца
