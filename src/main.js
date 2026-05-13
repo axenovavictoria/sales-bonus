@@ -106,8 +106,9 @@ function analyzeSalesData(data, options) {
             
             // расчет прибыли
             const cost = product.purchase_price * item.quantity; // расчет стоимости товара
-            const roundedProfit = Math.round(profit * 100) / 100;  // округляем profit до добавления
-            sellerStat.profit = Math.round((sellerStat.profit + roundedProfit) * 100) / 100; // добавление прибыли к общей прибыли продавца
+            const profit = revenue - cost; // расчет прибыли
+            const roundedProfit = Math.round(profit * 100) / 100;  // потом округляем
+            sellerStat.profit = Math.round((sellerStat.profit + roundedProfit) * 100) / 100; // добавление прибыли к общей прибыли продавца округленной
             
             // подсчет количества проданных товаров
             if (!sellerStat.products_sold[item.sku]) {
