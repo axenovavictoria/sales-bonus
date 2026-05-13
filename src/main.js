@@ -141,7 +141,7 @@ function analyzeSalesData(data, options) {
             profit: seller.profit, // добавление прибыли
             sales_count: seller.sales_count, // добавление количества продаж
             top_products: topProducts, // добавление топ 10 товаров
-            bonus: bonuses.find(b => b.name === seller.name)?.bonus || 0 // добавление бонуса по имени продавца
+            bonus: Math.round((bonuses.find(b => b.name === seller.name)?.bonus || 0) * 100) / 100 // добавление бонуса по имени продавца
         };
     });
     return result;
