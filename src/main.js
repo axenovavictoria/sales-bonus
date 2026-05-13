@@ -102,12 +102,12 @@ function analyzeSalesData(data, options) {
             const product = productsMap[item.sku]; // получение товара по SKU
             if (!product) return;
             const revenue = options.calculateRevenue(item, product); // расчет выручки
-            sellerStat.revenue += revenue; // добавление выручки к общей выручке продавца
+            sellerStat.revenue = Math.round((sellerStat.revenue + revenue) * 100) / 100; // добавление выручки к общей выручке продавца
             
             // расчет прибыли
             const cost = product.purchase_price * item.quantity; // расчет стоимости товара
             const profit = revenue - cost; // расчет прибыли
-            sellerStat.profit += profit; // добавление прибыли к общей прибыли продавца
+            sellerStat.profit = Math.round((sellerStat.profit + profit) * 100) / 100; // добавление прибыли к общей прибыли продавца
             
             // подсчет количества проданных товаров
             if (!sellerStat.products_sold[item.sku]) {
@@ -137,11 +137,11 @@ function analyzeSalesData(data, options) {
         return { // добавление итоговой коллекции
             seller_id: seller.id, // добавление ID продавца
             name: seller.name, // добавление имени продавца
-            revenue: Math.round(seller.revenue * 100) / 100, // добавление выручки
-            profit: Math.round(seller.profit * 100) / 100, // добавление прибыли
+            revenue: seller.revenue, // добавление выручки
+            profit: seller.profit, // добавление прибыли
             sales_count: seller.sales_count, // добавление количества продаж
             top_products: topProducts, // добавление топ 10 товаров
-            bonus: Math.round((bonuses.find(b => b.name === seller.name)?.bonus || 0) * 100) / 100 // добавление бонуса по имени продавца
+            bonus: bonuses.find(b => b.name === seller.name)?.bonus || 0 // добавление бонуса по имени продавца
         };
     });
     return result;
