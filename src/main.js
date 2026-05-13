@@ -101,13 +101,12 @@ function analyzeSalesData(data, options) {
         record.items.forEach(item => {
             const product = productsMap[item.sku]; // получение товара по SKU
             if (!product) return;
-            const revenue = options.calculateRevenue(item, product); // расчет выручки
-            sellerStat.revenue += revenue; // добавление выручки к общей выручке продавца
-            
-            // расчет прибыли
-            const cost = product.purchase_price * item.quantity; // расчет стоимости товара
-            const profit = revenue - cost; // расчет прибыли
-            sellerStat.profit += profit; // добавление прибыли к общей прибыли продавца
+            const revenue = options.calculateRevenue(item, product);
+            sellerStat.revenue = +(sellerStat.revenue + revenue).toFixed(2);
+
+            const cost = product.purchase_price * item.quantity;
+            const profit = revenue - cost;
+            sellerStat.profit = +(sellerStat.profit + profit).toFixed(2);
             
             // подсчет количества проданных товаров
             if (!sellerStat.products_sold[item.sku]) {
